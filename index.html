@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meri Husn Pari 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0d0d2b;
+      font-family: 'Great Vibes', cursive;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+      text-align: center;
+      color: white;
+    }
+
+    .stars, .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -2;
+      top: 0;
+      left: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+
+    .heart {
+      position: absolute;
+      color: pink;
+      animation: floatHeart linear infinite;
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 0.2; }
+      50% { opacity: 0.6; }
+      100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+    }
+
+    .message {
+      font-size: 3rem;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+    }
+
+    .fade-in {
+      opacity: 1 !important;
+    }
+
+    .fade-out {
+      opacity: 0 !important;
+    }
+
+    .btn {
+      margin-top: 50px;
+      padding: 14px 35px;
+      font-size: 1.2rem;
+      background: #f9c6f0;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      box-shadow: 0 8px 20px rgba(255, 192, 203, 0.25);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-block;
+      opacity: 0;
+    }
+
+    .btn.fade-in {
+      opacity: 1;
+      animation: pulse 1.5s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { box-shadow: 0 0 10px rgba(255, 192, 203, 0.4); }
+      to   { box-shadow: 0 0 20px rgba(255, 105, 135, 0.6); }
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container">
+    <div class="message fade-in" id="messageBox">Meri Husn Pari 💫</div>
+    <a href="page2.html" class="btn hidden" id="nextBtn">Dabao Mujhe 💖</a>
+  </div>
+
+  <audio id="bgMusic" preload="auto" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const messages = [
+      "Meri Husn Pari 💫",
+      "I wanted to ask you something...",
+      "But before that let's verify if this has reached the right person..."
+    ];
+
+    const messageBox = document.getElementById("messageBox");
+    const nextBtn = document.getElementById("nextBtn");
+    const bgMusic = document.getElementById("bgMusic");
+    let index = 0;
+
+    function showNextMessage() {
+      messageBox.classList.remove("fade-in");
+      messageBox.classList.add("fade-out");
+
+      setTimeout(() => {
+        index++;
+        if (index < messages.length) {
+          messageBox.textContent = messages[index];
+          messageBox.classList.remove("fade-out");
+          messageBox.classList.add("fade-in");
+        } else {
+          messageBox.classList.add("hidden");
+          nextBtn.classList.remove("hidden");
+          nextBtn.classList.add("fade-in");
+        }
+      }, 1200);
+    }
+
+    // Start with first message
+    messageBox.classList.add("fade-in");
+
+    // Longer delays for nicer effect
+    setTimeout(showNextMessage, 4000);
+    setTimeout(showNextMessage, 8500);
+    setTimeout(showNextMessage, 13500);
+
+    // Play music on click
+    nextBtn.addEventListener("click", () => {
+      bgMusic.play();
+    });
+
+    // Generate floating stars
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.getElementById("stars").appendChild(star);
+    }
+
+    // Generate floating hearts
+    const heartChars = ["💖", "💘", "💕", "💓"];
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = heartChars[Math.floor(Math.random() * heartChars.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (12 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (6 + Math.random() * 5) + "s";
+      document.getElementById("hearts").appendChild(heart);
+    }
+  </script>
+</body>
+</html>
