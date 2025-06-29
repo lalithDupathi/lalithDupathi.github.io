@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All About You 💗</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page3">
+  <div class="stars" id="stars"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container">
+    <div class="message fade-in" style="font-size: 2.3em; margin-bottom: 25px;">
+      Why do you think I want to date you? 💞
+    </div>
+
+    <div id="wordBox" class="word-grid"></div>
+
+    <a href="page4.html" class="btn hidden" id="nextBtn">Press mee plsss 💌</a>
+  </div>
+
+  <script>
+    const goodWords = ["Mera paisa uske paas hai","Beautiphoool", "Sweetyyyy", "Kinddd", "Petloverrr","Category 5 Storm","Cutieee","Multiple Personalities","Always makes me Laugh","Accepts all my weird","Uske jaisa mila hi nai kabhi aur na hi milegi aur na hi chahiye"];
+    const badWords = ["Grumpy", "Meann", "Selfishhhhh", "Boringggg"];
+    const allWords = [...goodWords, ...badWords].sort(() => Math.random() - 0.5);
+    const selectedGoodWords = new Set();
+
+    const wordBox = document.getElementById("wordBox");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function handleWordClick(word, el) {
+      if (goodWords.includes(word)) {
+        el.innerHTML = `${word} ✅`;
+        el.classList.add("selected-good");
+        el.style.pointerEvents = "none";
+        selectedGoodWords.add(word);
+      } else {
+        el.textContent = "NOPE ❌";
+        el.classList.add("vanish");
+        setTimeout(() => el.remove(), 600);
+      }
+
+      if (selectedGoodWords.size === goodWords.length) {
+        nextBtn.classList.remove("hidden");
+        nextBtn.classList.add("fade-in");
+      }
+    }
+
+    allWords.forEach(word => {
+      const span = document.createElement("span");
+      span.className = "word-button fade-in";
+      span.textContent = word;
+      span.onclick = () => handleWordClick(word, span);
+      wordBox.appendChild(span);
+    });
+
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDuration = 2 + Math.random() * 3 + "s";
+      document.getElementById("stars").appendChild(star);
+    }
+
+    const heartChars = ["💖", "💘", "💕", "💓"];
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = heartChars[Math.floor(Math.random() * heartChars.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (12 + Math.random() * 20) + "px";
+      heart.style.animationDuration = 6 + Math.random() * 5 + "s";
+      document.getElementById("hearts").appendChild(heart);
+    }
+  </script>
+</body>
+</html>

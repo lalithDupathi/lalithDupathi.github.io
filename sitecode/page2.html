@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tera Naam 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="page2">
+  <div class="stars" id="stars"></div>
+  <div class="hearts" id="hearts"></div>
+
+  <div class="container">
+    <div class="message fade-in" style="font-size: 2.5em; margin-bottom: 20px;">
+      What nickname do I call you the most? 💭
+    </div>
+
+    <input type="text" id="nameInput" placeholder="Type your answer..." class="input-box" />
+    <br>
+    <button class="btn fade-in" onclick="checkAnswer()">Dabaaa naa 💌</button>
+
+    <div id="response" class="message" style="margin-top: 20px; font-size: 1.5em;"></div>
+  </div>
+
+  <script>
+    let attempts = 0;
+
+    const cuteReplies = [
+      "Oopsie! Not quite, but your effort is super cute! 🥺💕",
+      "Aww, close enough to steal my heart! Try again, please? 😘💖",
+      "You’re my favorite, even when you’re wrong! One more try? 🥰🌸",
+      "Hehe, that’s adorable but not the one! Keep guessing, my jaan! 💞",
+      "Not quite right, but your smile makes everything better! Try once more! 😊💗",
+      "Almost! But you’re still my favorite answer 🐻💘",
+      "You're close! I can feel the love getting warmer 🔥💝"
+    ];
+
+    function checkAnswer() {
+      const input = document.getElementById("nameInput").value.trim().toLowerCase();
+      const response = document.getElementById("response");
+      const correctAnswer = "dishuuuuuuuuuuuuuuuuuuuuuuuuuuu";
+
+      if (input === correctAnswer) {
+        response.textContent = "Hehe... knew you'd get it right 😘";
+        response.classList.add("fade-in");
+        setTimeout(() => {
+          window.location.href = "page3.html";
+        }, 2000);
+      } else {
+        attempts++;
+        if (attempts >= 5) {
+          response.textContent = "Try the number of u's equal to your age 😉";
+        } else {
+          const msg = cuteReplies[Math.floor(Math.random() * cuteReplies.length)];
+          response.textContent = msg;
+        }
+        response.classList.add("fade-in");
+      }
+    }
+
+    for (let i = 0; i < 50; i++) {
+      const star = document.createElement("div");
+      star.className = "star";
+      star.style.left = Math.random() * 100 + "vw";
+      star.style.animationDuration = 2 + Math.random() * 3 + "s";
+      document.getElementById("stars").appendChild(star);
+    }
+
+    const heartChars = ["💖", "💘", "💕", "💓"];
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = heartChars[Math.floor(Math.random() * heartChars.length)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (12 + Math.random() * 20) + "px";
+      heart.style.animationDuration = 6 + Math.random() * 5 + "s";
+      document.getElementById("hearts").appendChild(heart);
+    }
+  </script>
+</body>
+</html>
